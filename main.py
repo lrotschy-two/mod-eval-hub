@@ -50,9 +50,7 @@ logging.config.fileConfig("logging.conf")
 
 def setup_validation_run_for_pull_request(project_dir: str) -> ValidationRun:
     # load config file
-    logger.info(print(project_dir))
     config = os.path.join(project_dir, "validation-config.json")
-    logger.info(print(config))
     f = open(config)
     config_dict = json.load(f)
     f.close()
