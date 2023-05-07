@@ -50,7 +50,7 @@ logging.config.fileConfig("logging.conf")
 
 def setup_validation_run_for_pull_request(project_dir: str) -> ValidationRun:
     # load config file
-    config = "/home/runner/work/cfa-covid19-eval-hub/cfa-covid19-eval-hub/covid-validation-config.json"
+    config = "https://github.com/JMHumphreys/mod-eval-hub/blob/main/covid-validation-config.json"
     f = open(config)
     config_dict = json.load(f)
     f.close()
