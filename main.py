@@ -129,7 +129,7 @@ def setup_validation_run_for_pull_request(project_dir: str) -> ValidationRun:
         "HUB_REPOSITORY_NAME": config_dict['hub_repository_name'],
         "HUB_MIRRORED_DIRECTORY_ROOT": (REPOSITORY_ROOT_ONDISK/"hub").resolve(),
         "PULL_REQUEST_DIRECTORY_ROOT":  (REPOSITORY_ROOT_ONDISK/"pull_request").resolve(),
-        "POPULATION_DATAFRAME_PATH": os.path.join("/home/runner/work/cfa-covid19-eval-hub/cfa-covid19-eval-hub/", config_dict['location_filepath']),
+        "POPULATION_DATAFRAME_PATH": os.path.join("/home/runner/work/mod-eval-hub/mod-eval-hub/", config_dict['location_filepath']),
         "FILENAME_PATTERNS": FILENAME_PATTERNS,
         "IS_GITHUB_ACTIONS": os.environ.get("GITHUB_ACTIONS") == "true",
         "GITHUB_TOKEN_ENVIRONMENT_VARIABLE_NAME": "GH_TOKEN",
