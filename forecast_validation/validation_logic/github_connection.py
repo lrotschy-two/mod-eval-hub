@@ -190,39 +190,22 @@ def get_all_models_from_repository(
 def download_all_forecast_and_metadata_files(store: dict[str, Any]) -> ValidationStepResult:
     logger.info("Downloading forecast and metadata files...")
     root_directory: pathlib.Path = store["PULL_REQUEST_DIRECTORY_ROOT"]
-    
     filtered_files: dict[PullRequestFileType, list[File]] = store["filtered_files"]
     files = itertools.chain(filtered_files.get(PullRequestFileType.FORECAST, []),
                             filtered_files.get(PullRequestFileType.METADATA, []),
                             filtered_files.get(PullRequestFileType.OTHER_FS, []),
                             filtered_files.get(PullRequestFileType.OTHER_NONFS, []))
-    os.makedirs(root_directory, exist_ok=True)
+    if not root_directory.exists():
+        os.makedirs(root_directory, exist_ok=True)
 
     for file in files:
         filepath = pathlib.Path(file.filename)
         parent_directory = (root_directory / filepath.parent).resolve()
-        os.makedirs(parent_directory, exist_ok=True)
+        if not parent_directory.exists():
+            os.makedirs(parent_directory)
 
-        local_path = (root_directory / filepath).resolve()
+        local_path = (root_directory / pathlib.Path(file.filename)).resolve()
+        urllib.request.urlretrieve(file.raw_url, local_path)
         
-        GITHUB_TOKEN = "XXXXXXXXXXXX" #Testing
-        
-        opener = urllib.request.build_opener()
-        opener.addheaders = [('Authorization', f'token {GITHUB_TOKEN}')]
-        urllib.request.install_opener(opener)
-        
-        logger.info(print(file.raw_url))
-        logger.info(print(os.path.normpath(local_path)))
-        logger.info(print(os.getcwd()))
-
-        try:
-            urllib.request.urlretrieve(file.raw_url, os.path.normpath(local_path))
-        except urllib.error.HTTPError as exception:
-            logger.info(print(f"HTTP Error {exception.code}: {exception.reason}"))
-        except urllib.error.URLError as exception:
-            logger.info(print(f"URL Error: {exception.reason}"))
-        except Exception as exception:
-            logger.info(print(f"Error: {exception}"))
-
     logger.info("Download successful")
     return ValidationStepResult(success=True)
