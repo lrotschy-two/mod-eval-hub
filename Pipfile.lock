@@ -1,0 +1,28 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "5fd11795d8982a493a4e91883be3da1b638814f4048330112e48d02980f837f3"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.9"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "pykwalify": {
+            "file": "https://github.com/hannanabdul55/pykwalify/archive/master.zip"
+        },
+        "zoltpy": {
+            "editable": true,
+            "git": "https://github.com/reichlab/zoltpy"
+        }
+    },
+    "develop": {}
+}

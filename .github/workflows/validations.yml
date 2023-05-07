@@ -1,0 +1,38 @@
+name: Validations cdcent
+
+on:
+  pull_request_target:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.2]
+
+    steps:
+    - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+    - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+    - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+    - name: Check out repository code
+      uses: actions/checkout@v3
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+        architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+    - name: Setup pipenv
+      run: pip3 install pipenv==2022.8.5
+      #working-directory: ./cfa-covid19-eval-hub
+    - name: Install python dependencies 
+      run: pipenv install --skip-lock --verbose
+      #working-directory: ./cfa-covid19-eval-hub
+    - name: Validations output
+      working-directory: ${{ github.workspace }}
+      run: pipenv run python ${{ github.workspace }}/main.py
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        Z_USERNAME: ${{ secrets.Z_USERNAME}}
+        Z_PASSWORD: ${{ secrets.Z_PASSWORD}}
