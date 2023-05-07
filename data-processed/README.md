@@ -1,2 +1,2 @@
-# cfa-covid19-eval-hub
+# mod-eval-hub
 ## Submission Instructions
