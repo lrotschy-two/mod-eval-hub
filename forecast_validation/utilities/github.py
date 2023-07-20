@@ -8,7 +8,6 @@ from github.ContentFile import ContentFile
 from github.File import File
 from github.Repository import Repository
 
-
 def get_existing_models(repository: Repository, path: str) -> set[str]:
     """
     Get all currently existing model names in repository.
