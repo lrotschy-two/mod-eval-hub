@@ -298,37 +298,37 @@ def filename_match_forecast_date_check(
             ).date()
 
             # compare validation run date and forecast date if submitting new forecast file
-            if not existing_file_path.exists():
-                if (store["HUB_REPOSITORY_NAME"] == "cdcepi/Flusight-forecast-data"):
-                    if today - file_forecast_date > datetime.timedelta(days=1):
-                        logger.warning(
-                            "Forecast file %s is made more than 1 day ago.",
-                            basename
-                        )
-                        success = False
-                        error_list = errors.get(filepath, [])
-                        error_list.append((
-                            f"The forecast file {file} is not associated with a forecast " 
-                            f"date within 1 day of today. date of the forecast - {file_forecast_date}, "
-                            f"today - {today}."
-                        ))
-                        errors[filepath] = error_list
-
-                else:
+            #if not existing_file_path.exists():
+             #   if (store["HUB_REPOSITORY_NAME"] == "cdcepi/Flusight-forecast-data"):
+            #        if today - file_forecast_date > datetime.timedelta(days=1):
+            #            logger.warning(
+            #                "Forecast file %s is made more than 1 day ago.",
+             #               basename
+             #           )
+            #            success = False
+            #            error_list = errors.get(filepath, [])
+            #            error_list.append((
+            #                f"The forecast file {file} is not associated with a forecast " 
+            #                f"date within 1 day of today. date of the forecast - {file_forecast_date}, "
+            #                f"today - {today}."
+            #            ))
+            #            errors[filepath] = error_list
+#
+            #    else:
                     # covid hub
-                    if abs(file_forecast_date - today) > datetime.timedelta(days=1):
-                        logger.warning(
-                            "Forecast file %s is made more than 1 day ago.",
-                            basename
-                        )
-                        success = False
-                        error_list = errors.get(filepath, [])
-                        error_list.append((
-                            f"The forecast file {file} is not associated with a forecast " 
-                            f"date within 1 day of today. date of the forecast - {file_forecast_date}, "
-                            f"today - {today}."
-                        ))
-                        errors[filepath] = error_list
+             #       if abs(file_forecast_date - today) > datetime.timedelta(days=1):
+             #           logger.warning(
+             #               "Forecast file %s is made more than 1 day ago.",
+              #              basename
+             #           )
+             #           success = False
+             #           error_list = errors.get(filepath, [])
+             #           error_list.append((
+             #               f"The forecast file {file} is not associated with a forecast " 
+             #               f"date within 1 day of today. date of the forecast - {file_forecast_date}, "
+             #               f"today - {today}."
+              #          ))
+              #          errors[filepath] = error_list
 
     if success:
         success_message = "✔️ Forecast date validation successful."
